@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    Task List
+    <h1>helo,{{user.username | title }}</h1>
+    <div>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}"> logout </a>
+        {% else %}
+        <a href="{% url 'login' %}"> login </a>
+        {% endif %}
+    </div><br>
+    <div>
+        {% for i in object_list %}
+        <div><br>
+            {{i.id}}
+            {{i.task}}
+            {{i.created}}
+            {{i.completed}}
+            <a href="{% url 'delete' i.id %}">Delete</a>
+            <a href="{% url 'details' i.id %}">View</a>
+            <a href="{% url 'update' i.id %}">Update</a>
+        </div>
+        {% endfor %}
+</body>
+</html>

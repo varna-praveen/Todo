@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Tasks:{{tasks}}</h1>
+{% if tasks.completed %}
+Completed
+{% else %}
+Pending
+{% endif %}
+<br>
+<a href="{% url 'task' %}">Go Back</a>
+</body>
+</html>
