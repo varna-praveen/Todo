@@ -7,13 +7,16 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 # Create your views here.
 class CustomLoginView(LoginView):
     template_name='login.html'
     fields= '__all__'
-    redirect_authentiicated_user= True
+    redirect_authenticated_user= True
+
     def get_success_url(self):
         return reverse_lazy('createtask')
+
 
 class RegisterPage(FormView):
     template_name = 'register.html'
@@ -36,12 +39,18 @@ class RegisterPage(FormView):
 class TaskCreate(LoginRequiredMixin,CreateView):
     model=Tasks
     fields = ['task','description','completed']
-    success_url= reverse_lazy('task')
     template_name = 'taskcreate.html'
     
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(TaskCreate, self).form_valid(form)
+
+    def get ( self , request , *args , **kwargs ) :
+        if not self.request.user.is_authenticated :
+            return redirect ( 'login' )  # Redirect to the login page
+        return super ( ).get ( request , *args , **kwargs )
+
+    success_url = reverse_lazy ( 'task' )
     
 class TaskList(ListView):
     model = Tasks

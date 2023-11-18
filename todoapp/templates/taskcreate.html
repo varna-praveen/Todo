@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Task Create</title>
+    <link rel="stylesheet" href="{% static 'css/taskcreate.css' %}">
 </head>
-
 <body>
     <form method = 'post' action ='' >
          {% csrf_token %}
